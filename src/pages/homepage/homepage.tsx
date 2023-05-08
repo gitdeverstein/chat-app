@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-export default function home() {
+export default function Accueil() {
   const router = useRouter();
 
   useEffect(() => {

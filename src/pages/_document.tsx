@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import Accueil from './homepage'
+import Accueil from './homepage/homepage'
 
 export default function Document() {
   return (
