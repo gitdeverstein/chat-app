@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Signup from '../inscriptionPage/inscription';
 
 export default function Accueil() {
   const router = useRouter();
@@ -14,8 +15,10 @@ export default function Accueil() {
   }, []);
 
   return (
-    <div>
-      <h1>Welcome !</h1>
-    </div>
+    <html>
+      <div>
+      <Signup></Signup>
+      </div>
+    </html>
   );
 }

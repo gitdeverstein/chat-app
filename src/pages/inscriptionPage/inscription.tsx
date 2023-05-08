@@ -21,15 +21,13 @@ export default function Signup() {
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    // TODO: Enregistrer les données d'inscription dans la base de données
+    
     const socket = io('http://localhost:3000');
     socket.on('connect', () => {
       console.log('Connected to socket.io server');
     });
-    // Émission d'un message de chat
 socket.emit('chatMessage', 'Bonjour tout le monde !');
 
-// Écoute des messages de chat entrants
 socket.on('chatMessage', message => {
   console.log('Nouveau message de chat :', message);
 });
