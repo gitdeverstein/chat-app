@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import io from 'socket.io-client';
-import { Stack, TextField } from '@mui/material';
+import { Stack } from '@mui/material';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -39,8 +38,6 @@ socket.on('chatMessage', message => {
       <div>
     <h1>Inscription</h1>
     <Stack alignItems="center">
-
-    <TextField label="MUI"></TextField>
       
     <form onSubmit={handleSubmit}>
       <label>
