@@ -1,24 +1,10 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Signup from '../inscriptionPage/inscription';
+import Signup from '../signUpPage/signUp';
 
-export default function Accueil() {
- // const router = useRouter(); 
-
-  useEffect(() => {
-    const userInfo = localStorage.getItem('userInfo');
-    if (userInfo) {
-      // router.push('/global-chat');
-    } else {
-      // router.push('/signup');
-    }
-  }, []);
+export default function HomePage() {
 
   return (
-    <html>
       <div>
       <Signup />
       </div>
-    </html>
   );
 }
