@@ -3,21 +3,21 @@ import { useRouter } from 'next/router';
 import Signup from '../inscriptionPage/inscription';
 
 export default function Accueil() {
-  const router = useRouter();
+ // const router = useRouter(); 
 
   useEffect(() => {
     const userInfo = localStorage.getItem('userInfo');
     if (userInfo) {
-      router.push('/global-chat');
+      // router.push('/global-chat');
     } else {
-      router.push('/signup');
+      // router.push('/signup');
     }
   }, []);
 
   return (
     <html>
       <div>
-      <Signup></Signup>
+      <Signup />
       </div>
     </html>
   );
