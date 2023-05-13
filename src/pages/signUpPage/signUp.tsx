@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import io from 'socket.io-client';
-import { Stack } from '@mui/material';
+import { Stack, TextField, Button } from '@mui/material';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -40,32 +40,42 @@ socket.on('chatMessage', message => {
     <Stack alignItems="center">
       
     <form onSubmit={handleSubmit}>
-      <label>
-        Nom:
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-      </label>
+    <TextField
+          required
+          id="outlined-required"
+          label="Nom"
+        />
       <br />
-      <label>
-        Adresse e-mail:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-      </label>
+      <TextField
+          required
+          id="outlined-required"
+          label="Adresse e-mail:"
+        />
       <br />
-      <label>
-        Mot de passe:
-        <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-      </label>
+      <TextField
+          required
+          id="standard-password-input"
+          label="nouveau mot de passe"
+          type="password"
+          autoComplete="current-password"
+        />
       <br />
-      <label>
-        Confirmer le mot de passe:
-        <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
-      </label>
+      <TextField
+          required
+          id="standard-password-input"
+          label="confirmer le mot de passe"
+          type="password"
+          autoComplete="current-password"
+        />
       <br />
-      <label>
-        Biographie:
-        <textarea name="bio" value={formData.bio} onChange={handleChange} required />
-      </label>
+      <TextField
+          id="outlined-multiline-static"
+          label="Biographie"
+          multiline
+          rows={4}
+        />
       <br />
-      <button type="submit">S'inscrire</button>
+      <Button variant="contained">S'inscrire</Button>
     </form>
     </Stack>
   </div>
