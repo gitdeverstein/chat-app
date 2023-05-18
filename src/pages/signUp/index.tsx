@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import io from 'socket.io-client';
 import { Stack, TextField, Button } from '@mui/material';
+import { useRouter } from 'next/router';
 
-export default function Signup() {
+export default function SignUp() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,13 +27,22 @@ export default function Signup() {
     socket.on('connect', () => {
       console.log('Connected to socket.io server');
     });
-socket.emit('chatMessage', 'Bonjour tout le monde !');
+socket.emit('chatMessage', 'connected');
 
 socket.on('chatMessage', message => {
   console.log('Nouveau message de chat :', message);
 });
     
   };
+  
+  const handleSignIn = () => {
+    if("condition"){
+      router.push('/dashboard');
+    }else{
+      router.push('/signIn');
+    }
+
+  }
 
   return (
     <center>
@@ -75,7 +86,9 @@ socket.on('chatMessage', message => {
           rows={4}
         />
       <br />
-      <Button variant="contained">S'inscrire</Button>
+      <Button variant="contained" type='submit'>S'inscrire</Button>
+      <h4>Compte éxistant?</h4>
+      <Button variant="contained" onClick={handleSignIn}>Se connecter</Button>
     </form>
     </Stack>
   </div>
