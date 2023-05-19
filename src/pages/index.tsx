@@ -1,4 +1,4 @@
-import SignUp from './signUp'
+import SingIn from './signIn';
 import { Inter } from 'next/font/google'
 import { useRouter } from 'next/router'
 
@@ -9,7 +9,7 @@ export default function IndexPage() {
 
   return (
       <main>
-        <SignUp />
+        <SingIn />
       </main>
   )
 }

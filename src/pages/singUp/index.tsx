@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import io from 'socket.io-client';
 import { Stack, TextField, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 
-export default function SignUp() {
+export default function SingUp() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
@@ -12,31 +11,9 @@ export default function SignUp() {
     confirmPassword: '',
     bio: ''
   });
-
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    
-    const socket = io('http://localhost:3000');
-    socket.on('connect', () => {
-      console.log('Connected to socket.io server');
-    });
-socket.emit('chatMessage', 'connected');
-
-socket.on('chatMessage', message => {
-  console.log('Nouveau message de chat :', message);
-});
-    
-  };
   
-  const handleSignIn = () => {
-    if("condition"){
+  const handleSingUp = () => {
+    if(formData){
       router.push('/dashboard');
     }else{
       router.push('/signIn');
@@ -45,12 +22,10 @@ socket.on('chatMessage', message => {
   }
 
   return (
-    <center>
       <div>
-    <h1>Inscription</h1>
     <Stack alignItems="center">
-      
-    <form onSubmit={handleSubmit}>
+    <h1>Inscription</h1>
+    <form>
     <TextField
           required
           id="outlined-required"
@@ -86,12 +61,9 @@ socket.on('chatMessage', message => {
           rows={4}
         />
       <br />
-      <Button variant="contained" type='submit'>S'inscrire</Button>
-      <h4>Compte éxistant?</h4>
-      <Button variant="contained" onClick={handleSignIn}>Se connecter</Button>
+      <Button variant="contained" onClick={handleSingUp}>S'inscrire</Button>
     </form>
     </Stack>
   </div>
-  </center>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Stack } from '@mui/material';
+import io from 'socket.io-client';
 
 export default function SingIn() {
   const router = useRouter();
@@ -9,14 +10,22 @@ export default function SingIn() {
     password: ''
   });
 
-  
-  const {user, authenticated}= userAuth();
-  if (user || authenticated) {
-    router.push('/');
-  }
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    
+    const socket = io('http://localhost:3000');
+    socket.on('connect', () => {
+      console.log('Connected to socket.io server');
+    });
+socket.emit('chatMessage', 'connected');
+
+socket.on('chatMessage', message => {
+  console.log('Nouveau message de chat :', message);
+});}
 
   return (
     <div>
+      <Stack alignItems="center">
       <h1>Connexion</h1>
       <form>
       <TextField
@@ -33,12 +42,14 @@ export default function SingIn() {
           autoComplete="current-password"
         />
         <br />
-        <Button variant="contained" type='submit' >Se connecter</Button>
+        <Button variant="contained" type='submit' onClick={handleSubmit}>Se connecter</Button>
+        <h4>Vous n'avez pas encore de compte?</h4>
+        <Button variant="contained" onClick={()=>{router.push('/singUp', '/singUp', {locale: 'fr'})}}>
+          S'inscrire
+        </Button>
       </form>
+      </Stack>
     </div>
   );
-}
-function userAuth(): { user: any; authenticated: any; } {
-  throw new Error('Function not implemented.');
 }
 
