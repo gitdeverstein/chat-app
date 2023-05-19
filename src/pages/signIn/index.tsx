@@ -1,25 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { TextField, Button, Stack } from '@mui/material';
-import io from 'socket.io-client';
 
+const userEmail=()=> ({ user: null, loading: false});
 export default function SingIn() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword]= useState("");
+  const {user, loading}= userEmail();
 
-  const handleSubmit = (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
-    
-    const socket = io('http://localhost:3000');
-    socket.on('connect', () => {
-      console.log('Connected to socket.io server');
-    });
-socket.emit('chatMessage', 'connected');
-
-socket.on('chatMessage', message => {
-  console.log('Nouveau message de chat :', message);
-});}
+  useEffect(()=>{
+    if(!(user || loading)){
+      router.push('/');
+    }
+  }, [user, loading])
 
   return (
     <div>
@@ -37,7 +31,7 @@ socket.on('chatMessage', message => {
         <TextField
           required
           id="standard-password-input"
-          label="nouveau mot de passe"
+          label="mot de passe"
           type="password"
           autoComplete="current-password"
           value={password}

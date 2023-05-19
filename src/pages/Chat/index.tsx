@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { Button, Input, Stack} from '@mui/material';
 
 interface Message {
   id: number;
@@ -32,6 +33,7 @@ export default function Chat() {
 
   return (
     <div>
+      <Stack alignItems="center">
       <h1>Chat</h1>
       <div>
         {messages.map((message) => (
@@ -42,13 +44,10 @@ export default function Chat() {
         ))}
       </div>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <button type="submit">Send</button>
+        <Input type="text" value={newMessage} onChange={(e) => setNewMessage(e.target.value)}/>
+        <Button variant="contained" type="submit">Send</Button>
       </form>
+      </Stack>
     </div>
   );
 }
