@@ -5,13 +5,11 @@ import io from 'socket.io-client';
 
 export default function SingIn() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword]= useState("");
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
+  const handleSubmit = (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
     
     const socket = io('http://localhost:3000');
     socket.on('connect', () => {
@@ -32,6 +30,8 @@ socket.on('chatMessage', message => {
           required
           id="outlined-required"
           label="Adresse e-mail:"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
         />
         <br />
         <TextField
@@ -40,9 +40,11 @@ socket.on('chatMessage', message => {
           label="nouveau mot de passe"
           type="password"
           autoComplete="current-password"
+          value={password}
+          onChange={(e)=>setPassword(e.target.value)}
         />
         <br />
-        <Button variant="contained" type='submit' onClick={handleSubmit}>Se connecter</Button>
+        <Button variant="contained" type='submit' onClick={()=>{router.push('/chat', '/chat', {locale: 'fr'})}}>Se connecter</Button>
         <h4>Vous n'avez pas encore de compte?</h4>
         <Button variant="contained" onClick={()=>{router.push('/singUp', '/singUp', {locale: 'fr'})}}>
           S'inscrire
