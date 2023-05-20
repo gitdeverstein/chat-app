@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { TextField, Button, Stack } from '@mui/material';
+import useAuth from './store';
 
 const userEmail=()=> ({ user: null, loading: false});
 export default function SingIn() {
+  const {isAuthenticated} = useAuth( state => state )
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword]= useState("");

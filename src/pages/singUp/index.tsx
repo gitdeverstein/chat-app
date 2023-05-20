@@ -61,7 +61,7 @@ export default function SingUp() {
           rows={4}
         />
       <br />
-      <Button variant="contained" onClick={handleSingUp}>S'inscrire</Button>
+      <Button variant="contained" type='submit' onClick={handleSingUp}>S'inscrire</Button>
     </form>
     </Stack>
   </div>

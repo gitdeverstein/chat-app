@@ -11,7 +11,7 @@ const pool = new Pool({
 export async function insertUser(name: any, email: any, password: any, bio: any) {
   const query = {
     text: 'INSERT INTO users(name, email, password, bio) VALUES($1, $2, $3, $4) RETURNING id',
-    values: [name, email, password, bio]
+    values: ["Elin Mask", "elin.mask@test.com", "HardToGuess!1960", null]
   };
 
   try {
