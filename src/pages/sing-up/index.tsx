@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Stack, TextField, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 
+const creatUser=()=> ({ user: null, loading: false});
 export default function SingUp() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -12,14 +13,13 @@ export default function SingUp() {
     bio: ''
   });
   
-  const handleSingUp = () => {
-    if(formData){
-      router.push('/dashboard');
-    }else{
-      router.push('/signIn');
-    }
+  const {user, loading}= creatUser();
 
-  }
+  useEffect(()=>{
+    if(!(user || loading)){
+      router.push('/');
+    }
+  }, [user, loading]);
 
   return (
       <div>
@@ -61,7 +61,10 @@ export default function SingUp() {
           rows={4}
         />
       <br />
-      <Button variant="contained" type='submit' onClick={handleSingUp}>S'inscrire</Button>
+      <Button variant="contained" type='submit' onClick={()=>{  //mila token vao mety
+        router.push('/channel', '/channel', {locale: 'fr'})
+        }}>S'inscrire
+        </Button>
     </form>
     </Stack>
   </div>

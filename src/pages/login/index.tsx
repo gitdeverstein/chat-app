@@ -15,7 +15,7 @@ export default function SingIn() {
     if(!(user || loading)){
       router.push('/');
     }
-  }, [user, loading])
+  }, [user, loading]);
 
   return (
     <div>
@@ -40,9 +40,11 @@ export default function SingIn() {
           onChange={(e)=>setPassword(e.target.value)}
         />
         <br />
-        <Button variant="contained" type='submit' onClick={()=>{router.push('/chat', '/chat', {locale: 'fr'})}}>Se connecter</Button>
+        <Button variant="contained" type='submit' onClick={()=>{
+          router.push('/chat', '/chat', {locale: 'fr'})
+          }}>Se connecter</Button>
         <h4>Vous n'avez pas encore de compte?</h4>
-        <Button variant="contained" onClick={()=>{router.push('/singUp', '/singUp', {locale: 'fr'})}}>
+        <Button variant="contained" onClick={()=>{router.push('/sing-up', '/sing-up', {locale: 'fr'})}}>
           S'inscrire
         </Button>
       </form>
