@@ -5,7 +5,7 @@ import useAuth from './store';
 
 const userEmail=()=> ({ user: null, loading: false});
 export default function SingIn() {
-  const {isAuthenticated} = useAuth( state => state )
+  const {isAuthenticated , authenticate, logout} = useAuth( state => state )
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword]= useState("");
@@ -16,6 +16,14 @@ export default function SingIn() {
       router.push('/');
     }
   }, [user, loading]);
+
+  const handleClick = () => {
+    if (isAuthenticated) {
+      logout();
+    } else {
+      authenticate();
+    }
+  };
 
   return (
     <div>
@@ -40,9 +48,8 @@ export default function SingIn() {
           onChange={(e)=>setPassword(e.target.value)}
         />
         <br />
-        <Button variant="contained" type='submit' onClick={()=>{
-          router.push('/chat', '/chat', {locale: 'fr'})
-          }}>Se connecter</Button>
+        <Button variant="contained" type='submit' onClick={handleClick}>
+          {isAuthenticated ? "Se déconnecter" : "Se connecter"}</Button>
         <h4>Vous n'avez pas encore de compte?</h4>
         <Button variant="contained" onClick={()=>{router.push('/sing-up', '/sing-up', {locale: 'fr'})}}>
           S'inscrire

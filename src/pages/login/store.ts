@@ -2,7 +2,9 @@ import { create } from "zustand";
 
 
 interface useAuthType {
-  isAuthenticated:boolean;
+  isAuthenticated: boolean;
+  authenticate: ()=>void;
+  logout: ()=>void;
 }
 const useAuth = create<useAuthType>((set)=> ({
   isAuthenticated: false,
