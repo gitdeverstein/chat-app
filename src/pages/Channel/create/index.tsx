@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Button, Input, Stack} from '@mui/material';
+import NavBar from "@/components/navBar";
 
 interface Message {
   id: number;
@@ -34,7 +35,8 @@ export default function Chat() {
   return (
     <div>
       <Stack alignItems="center">
-      <h1>Chat</h1>
+        <NavBar />
+      <h2>Welcome !</h2>
       <div>
         {messages.map((message) => (
           <div key={message.id}>

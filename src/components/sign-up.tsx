@@ -14,7 +14,7 @@ const SingUpPage: NextPage= ()=>{
     const handleSingUp =async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         try{
-          const response= await fetch('/api/login',{
+          const response= await fetch('localhost:8080/user',{
             method:'POST',
             headers:{'Content-type': 'application/json'},
             body: JSON.stringify({name, email, password, confirmPassword, bio}),
@@ -22,7 +22,7 @@ const SingUpPage: NextPage= ()=>{
           if(response.ok){
             const userData= await response.json();
             if(userData.exists){
-                router.push('/channel');
+                router.push('/ProfilePage');
             }else{
                 router.push('/sign-up');
             }}else{console.error('Login failed')}
@@ -30,6 +30,10 @@ const SingUpPage: NextPage= ()=>{
           console.error('An unexepted error occured:', error);
         }
       };
+
+      const handleProfilePage= () => {
+        router.push('/profilePage')
+      }
 
       return(
         <>
@@ -81,7 +85,7 @@ const SingUpPage: NextPage= ()=>{
           onChange={(e)=>setBio(e.target.value)}
         />
       <br />
-      <Button variant="contained" type='submit'>S'inscrire</Button>
+      <Button variant="contained" type='submit' onClick={handleProfilePage}>S'inscrire</Button>
     </form>
     </Stack>
         </>

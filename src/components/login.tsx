@@ -11,7 +11,7 @@ const LoginPage: NextPage= ()=>{
     const handleLogin =async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         try{
-          const response= await fetch('/api/login',{
+          const response= await fetch('localhost:8080/user',{
             method:'GET',
             headers:{'Content-type': 'application/json'},
             body: JSON.stringify({email, password}),
@@ -19,7 +19,7 @@ const LoginPage: NextPage= ()=>{
           if(response.ok){
             const userData= await response.json();
             if(userData.exists){
-                router.push('/channel');
+                router.push('/profilePage');
             }else{
                 router.push('/sign-up');
             }}else{console.error('Login failed')}
@@ -30,6 +30,10 @@ const LoginPage: NextPage= ()=>{
       
       const handleSingUp= () => {
         router.push('/sing-up')
+      }
+
+      const handleProfilePage= () => {
+        router.push('/profilePage')
       }
 
     return(
@@ -55,7 +59,7 @@ const LoginPage: NextPage= ()=>{
           onChange={(e)=>setPassword(e.target.value)}
         />
         <br />
-        <Button variant="contained" type='submit'>Se connecter</Button>
+        <Button variant="contained" type='submit' onClick={handleProfilePage}>Se connecter</Button>
       </form>
       <h4>Vous n'avez pas encore de compte?</h4>
         <Button variant="contained" onClick={handleSingUp}>
