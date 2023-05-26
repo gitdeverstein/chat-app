@@ -11,7 +11,7 @@ const LoginPage: NextPage= ()=>{
     const handleLogin =async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         try{
-          const response= await fetch('localhost:8080/user',{
+          const response= await fetch('http://localhost:8080/users/login',{
             method:'GET',
             headers:{'Content-type': 'application/json'},
             body: JSON.stringify({email, password}),

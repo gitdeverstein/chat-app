@@ -1,23 +1,52 @@
-import { SetStateAction, useState } from 'react';
-import { Stack, TextField, Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Stack, Button, Typography } from '@mui/material';
 import NavBar from '@/components/navBar';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+
+interface User {
+  name: string;
+  email: string;
+  bio: string;
+}
 
 export default function ProfilePage() {
-  const [name, setName] = useState('Elin Mask');
-  const [email, setEmail] = useState('lin.mask@test.com');
-  const [password, setPassword] = useState('HardToGuess!1960');
+  const [user, setUser] = useState<User | null>(null);
+    const router = useRouter();
 
-  const handleNameChange = (event: { target: { value: SetStateAction<string>; }; }) => {
-    setName(event.target.value);
-  };
+    useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          const token = Cookies.get('token');
+          console.log('Token:', token);
+  
+          const response = await axios.get('http://localhost:8080/user', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+  
+          if (response.status === 200 && response.data.status) {
+            setUser(response.data.user);
+          } else {
 
-  const handleEmailChange = (event: { target: { value: SetStateAction<string>; }; }) => {
-    setEmail(event.target.value);
-  };
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      };
+  
+      fetchUserData();
+    }, []);
 
-  const handlePasswordChange = (event: { target: { value: SetStateAction<string>; }; }) => {
-    setPassword(event.target.value);
-  };
+  const handleEditProfil= () => {
+    router.push('/profile/edit')
+  }
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -25,22 +54,19 @@ export default function ProfilePage() {
         <NavBar/>
       <h1>Profile</h1>
       <form>
-        <TextField 
-        id="outlined-required"
-        label="Nom"
-        type="text" value={name} onChange={handleNameChange}/>
+        <Typography>
+        Name: {user.name}
+        </Typography>
         <br />
-        <TextField 
-        id="outlined-required"
-        label="Email"
-        type="text" value={email} onChange={handleEmailChange}/>
+        <Typography>
+        Email: {user.email}
+        </Typography>
         <br />
-        <TextField 
-        id="outlined-required"
-        label="Password"
-        type="text" value={password} onChange={handlePasswordChange}/>
+        <Typography>
+        Bio: {user.bio || 'N/A'}
+        </Typography>
         <br />
-        <Button variant='contained' type="submit">Save</Button>
+        <Button variant='contained' type="submit" onClick={handleEditProfil}>Edit</Button>
       </form>
       </Stack>
     </div>
