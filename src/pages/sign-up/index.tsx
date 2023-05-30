@@ -1,10 +1,10 @@
-import SingUpPage from "@/components/sign-up";
+import SignUpPage from "@/components/sign-up";
 
 export default function SingUp() {
 
   return (
   <div>
-    <SingUpPage/>
+    <SignUpPage/>
   </div>
   );
 }

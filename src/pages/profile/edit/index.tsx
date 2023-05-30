@@ -4,10 +4,10 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import NavBar from '@/components/navBar';
-import { Stack, TextField } from '@mui/material';
+import { Button, Stack, TextField } from '@mui/material';
 
 const EditProfilePage= ()=>{
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
   const router = useRouter();
   const [editError, setEditError] = useState(false);
 
@@ -21,7 +21,7 @@ const EditProfilePage= ()=>{
       });
 
       if (response.status === 200) {
-        router.push('/users/profile');
+        router.push('/profile');
       } else {
         setEditError(true);
       }
@@ -32,22 +32,37 @@ const EditProfilePage= ()=>{
   };
 
     return(
-        <>
+      <>
         <NavBar/>
-        <Stack alignItems="center">
-            <h2>Edit profil</h2>
-        {editError && <p>Error occurred while editing profile</p>}
+        <div>
+          <Stack alignItems="center">
+          <h2>Edit profil</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
         <TextField 
         id="outlined-required"
-        label="Nom"
+        label="Name"
         type="text" {...register('name')} />
         <br />
-        <TextField/>
+        <TextField 
+        id="outlined-required"
+        label="Old password"
+        type="Password" {...register('oldPassword')} />
+        <br/>
+        <TextField 
+        id="outlined-required"
+        label="New password"
+        type="Password" {...register('password')} />
+        <br/>
+        <TextField
+          id="outlined-multiline-static"
+          label="Bio"
+          type='text' {...register('bio')}/>
+          <br/>
+          <Button variant='contained' type="submit">Save</Button>
         </form>
-        </Stack>
-        
-        </>
+          </Stack>
+        </div>
+      </>
     );
 }
 

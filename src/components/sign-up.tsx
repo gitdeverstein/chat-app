@@ -2,90 +2,74 @@ import { useRouter } from 'next/router';
 import {NextPage} from 'next';
 import { Stack, TextField, Button } from '@mui/material';
 import { useState } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
-const SingUpPage: NextPage= ()=>{
-    const router= useRouter();
-    const [name, setName]= useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword]= useState("");
-    const [confirmPassword, setConfirmPassword]= useState("");
-    const [bio, setBio]= useState("");
+const SignUpPage: NextPage= ()=>{
+  const { register, handleSubmit } = useForm();
+  const router = useRouter();
+  const [signupError, setSignupError] = useState(false);
 
-    const handleSingUp =async (event: { preventDefault: () => void; }) => {
-        event.preventDefault();
-        try{
-          const response= await fetch('http://localhost:8080/users/',{
-            method:'POST',
-            headers:{'Content-type': 'application/json'},
-            body: JSON.stringify({name, email, password, confirmPassword, bio}),
-          });
-          if(response.ok){
-            const userData= await response.json();
-            if(userData.exists){
-                router.push('/ProfilePage');
-            }else{
-                router.push('/sign-up');
-            }}else{console.error('Login failed')}
-        }catch(error){
-          console.error('An unexepted error occured:', error);
-        }
-      };
+  const onSubmit = async (data: any) => {
+    try {
+      const response = await axios.post('http://localhost:8080/users', data);
+      if (response.status === 201) {
+        const token = response.data.user.token;
+
+        const idUser = response.data.user.id;
+
+        Cookies.set('id', idUser);
+
+        Cookies.set('token', token);
+
+        router.push('/profile');
+      } else {
+        setSignupError(true);
+      }
+    } catch (error) {
+      console.error(error);
+      setSignupError(true);
+    }
+  };
 
       return(
         <>
         <Stack alignItems="center">
-    <h1>Inscription</h1>
-    <form onSubmit={handleSingUp}>
+        <h1>Sign up</h1>
+    <form onSubmit={handleSubmit(onSubmit)}>
     <TextField
           required
           id="outlined-required"
-          label="Nom"
-          value={name}
-          onChange={(e)=>setName(e.target.value)}
-        />
+          label="name"
+          {...register('name', { required: true })} />
       <br />
       <TextField
           required
           id="outlined-required"
-          label="Adresse e-mail:"
-          value={email}
-          onChange={(e)=>setEmail(e.target.value)}
-        />
+          label="email"
+          {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
       <br />
       <TextField
           required
           id="standard-password-input"
-          label="nouveau mot de passe"
+          label="new password"
           type="password"
           autoComplete="current-password"
-          value={password}
-          onChange={(e)=>setPassword(e.target.value)}
-        />
-      <br />
-      <TextField
-          required
-          id="standard-password-input"
-          label="confirmer le mot de passe"
-          type="password"
-          autoComplete="current-password"
-          value={confirmPassword}
-          onChange={(e)=>setConfirmPassword(e.target.value)}
-        />
+          {...register('password', { required: true })} />
       <br />
       <TextField
           id="outlined-multiline-static"
-          label="Biographie"
           multiline
           rows={4}
-          value={bio}
-          onChange={(e)=>setBio(e.target.value)}
-        />
+          label="bio"
+          {...register('bio')} />
       <br />
-      <Button variant="contained" type='submit' onClick={handleSingUp}>S'inscrire</Button>
+      <Button variant="contained" type='submit'>Sign up</Button>
     </form>
-    </Stack>
+        </Stack>
         </>
-    )
+      )
 }
 
-export default SingUpPage;
+export default SignUpPage;

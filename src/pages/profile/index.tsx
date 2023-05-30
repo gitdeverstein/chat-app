@@ -30,22 +30,23 @@ export default function ProfilePage() {
           if (response.status === 200 && response.data.status) {
             setUser(response.data.user);
           } else {
-
+            router.push('/login')
           }
         } catch (error) {
           console.error(error);
+          router.push('/login')
         }
       };
   
       fetchUserData();
     }, []);
 
-  const handleEditProfil= () => {
+  const handleEditProfile= () => {
     router.push('/profile/edit')
   }
 
   if (!user) {
-    return <p>Loading...</p>;
+    return <Stack alignItems="center"><p>Loading...</p></Stack>;
   }
 
   return (
@@ -66,7 +67,7 @@ export default function ProfilePage() {
         Bio: {user.bio || 'N/A'}
         </Typography>
         <br />
-        <Button variant='contained' type="submit" onClick={handleEditProfil}>Edit</Button>
+        <Button variant='contained' type="submit" onClick={handleEditProfile}>Edit profile</Button>
       </form>
       </Stack>
     </div>
