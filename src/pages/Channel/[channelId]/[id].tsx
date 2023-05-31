@@ -37,7 +37,7 @@ const ChannelIdPage = () => {
       } catch (error) {
         console.error(error);
         setCreateError(true);
-        router.push(`/channels/create`)
+        router.push(`/channel/create`)
       }
     };
 
@@ -51,7 +51,7 @@ const ChannelIdPage = () => {
   }
 
   const handleAddMembers = () => {
-    router.push(`/channels/channel/${channelId}/members`);
+    router.push(`channel/${channelId}/members`);
   };
 
   return (

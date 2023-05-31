@@ -22,7 +22,7 @@ export default function CreateChannel() {
 
       if (response.status === 201 && response.data.status) {
         const channelId = response.data.channel.id;
-        router.push(`/channels/channel/${channelId}`);
+        router.push(`/channel/${channelId}`);
       } else {
         setCreateError(true);
         {createError && <h4>Error occurred while redirecting into this page</h4>}
@@ -35,8 +35,8 @@ export default function CreateChannel() {
 
   return (
     <>
-      <Stack alignItems="center">
-        <NavBar />
+    <Stack alignItems="center">
+    <NavBar />
       <h2>Create channel</h2>
       {createError && <h4>Error occurred while creating channel</h4>}
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +53,7 @@ export default function CreateChannel() {
         <br/>
         <Button variant="contained" type="submit">Create channel</Button>
       </form>
-      </Stack>
+    </Stack>
     </>
   );
 }

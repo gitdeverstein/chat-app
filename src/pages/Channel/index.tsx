@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import { Button } from '@mui/material';
 
 interface Channel {
 id: number;
@@ -21,7 +22,7 @@ const fetchChannels = async () => {
 try {
 const token = Cookies.get('token');
 
-    const response = await axios.get('http://localhost:8080/channels', {
+    const response = await axios.get('http://localhost:8080/channel', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -42,8 +43,12 @@ fetchChannels();
 }, []);
 
 const handleChannelClick = (channelId: number) => {
-router.push('/channels/channel/${channelId}');
+router.push('channel/${channelId}');
 };
+
+const handleCreateChannel= () => {
+  router.push('/channel/create')
+}
 
 return (
 <div>
@@ -55,6 +60,8 @@ return (
 <p>{channel.ownerId}</p>
 </div>
 ))}
+<h4>No channels?</h4>
+<Button variant="contained" onClick={handleCreateChannel}>Create channel</Button>
 </div>
 );
 };

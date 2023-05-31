@@ -64,10 +64,10 @@ export default function ProfilePage() {
         </Typography>
         <br />
         <Typography>
-        Bio: {user.bio || 'N/A'}
+        Bio: {user.bio || 'Hello World'}
         </Typography>
         <br />
-        <Button variant='contained' type="submit" onClick={handleEditProfile}>Edit profile</Button>
+        <Button variant='contained' onClick={handleEditProfile}>Edit profile</Button>
       </form>
       </Stack>
     </div>
