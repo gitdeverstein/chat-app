@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import Navbar from '@/components/Navbar';
+import NavBar from '@/components/NavBar';
 
 interface AddMemberResponse {
   status: boolean;
@@ -54,7 +54,7 @@ const AddMemberPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <NavBar />
       <h1>Add Member</h1>
       {success && <p>Member added successfully</p>}
       {error && <p>{error}</p>}

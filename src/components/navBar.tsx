@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import { Stack, Button, List, ListItem } from '@mui/material';
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
-import ChannelPage from '@/pages/channel';
+import { jsx } from '@emotion/react';
 
-const NavBar= ()=>{
+function NavBar () {
   const router= useRouter();
 
   const handleProfileClick = () => {
@@ -32,28 +31,30 @@ const NavBar= ()=>{
     } else {
       router.push('/login');
     }
-
-    return (
-      <div>
-        <Stack alignItems="center">
-        <List>
-          <ListItem>
-              <Button component="a" variant="contained" color="primary" onClick={handleProfileClick}>Profile</Button>
-          </ListItem>
-          <ListItem>
-            <Link href="/channel" passHref>
-              <Button component="a" variant="contained" color="primary">Channel</Button>
-            </Link>
-          </ListItem>
-          <ListItem>
-              <Button component="a" variant="contained" color="primary" onClick={handleCreateChannel}>Create channel</Button>
-          </ListItem>
-        </List>
-        <Button onClick={handleLogout}>Logout</Button>
-        </Stack>
-      </div>
-    );
   };
+  
+  return (
+    <>
+    <div>
+      <Stack alignItems="center">
+      <List>
+        <ListItem>
+            <Button component="a" variant="contained" color="primary" onClick={handleProfileClick}>Profile</Button>
+        </ListItem>
+        <ListItem>
+          <Link href="/channel" passHref>
+            <Button component="a" variant="contained" color="primary">Channel</Button>
+          </Link>
+        </ListItem>
+        <ListItem>
+            <Button component="a" variant="contained" color="primary" onClick={handleCreateChannel}>Create channel</Button>
+        </ListItem>
+      </List>
+      <Button onClick={handleLogout}>Logout</Button>
+      </Stack>
+    </div>
+    </>
+  );
 }
 
 export default NavBar;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Button, TextField, Stack, FormControl, Select, MenuItem} from '@mui/material';
-import NavBar from "@/components/navBar";
+import NavBar from "@/components/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useForm } from "react-hook-form";

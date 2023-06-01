@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import NavBar from '@/components/navBar';
+import NavBar from '@/components/NavBar';
 import { Button, Stack, TextField } from '@mui/material';
 
 const EditProfilePage= ()=>{

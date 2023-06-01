@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Stack, Button, Typography } from '@mui/material';
-import NavBar from '@/components/navBar';
+import NavBar from '@/components/NavBar';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import axios from 'axios';
