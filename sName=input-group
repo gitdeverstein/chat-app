@@ -1,0 +1,22 @@
+[33m2b72fd8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m fix navBar
+[33m170b28e[m fix navBar and [channelId]
+[33m305ac7a[m add channelId and fix NavBar
+[33m53d2ee2[m fix profile/edit
+[33m41b8c57[m chore: add EditProfil
+[33m5ee3738[m chore: add profilePage
+[33m9460b7c[m fix login and singup page
+[33m19cac15[m fix login page
+[33ma24f62c[m fix login and sing-up
+[33m11811b0[m add axios
+[33m99ec6d9[m fix singInPage
+[33m140b05c[m fix singIn and add chat
+[33mc3a9ad7[m fix singIn and singUp
+[33ma4b02cf[m fix singIn and singUp
+[33me5f9143[m fix: insciption
+[33m5a1df4d[m fix
+[33me1e7200[m fix
+[33mb0e2434[m fix
+[33me2660e6[m add: inscriptionPage
+[33m330bb0d[m fix: homepage
+[33m9ec96f0[m chore: add homepage
+[33ma3466dd[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Initial commit

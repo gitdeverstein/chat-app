@@ -13,16 +13,6 @@ interface Channel {
   createdAt: string;
 }
 
-interface Message {
-  id: number;
-  senderId: number;
-  channelId: number;
-  recipientId: number | null;
-  content: string;
-  updatedAt: string;
-  createdAt: string;
-}
-
 const ChannelIdPage = () => {
   const [channel, setChannel] = useState<Channel | null>(null);
   const [message, setMessage] = useState('');
@@ -72,8 +62,7 @@ const ChannelIdPage = () => {
 
   const handleSendMessage = async () => {
     try {
-      const response = await axios.post(
-        'http://localhost:8080/message',
+      const response = await axios.post('http://localhost:8080/message',
         {
           channelId: channel.id,
           content: message,
@@ -99,7 +88,10 @@ const ChannelIdPage = () => {
     <div>
       <NavBar/>
       <h1>Channel {channel.id}</h1>
-      <p>Name: {channel.name}</p>
+      <div>
+      <h3>Name: {channel.name}</h3>
+      <button onClick={handleAddMembers}>Edit</button>
+      </div>
       <p>Type: {channel.type}</p>
       <p>Owner ID: {channel.ownerId}</p>
       <p>Updated At: {channel.updatedAt}</p>
@@ -109,7 +101,7 @@ const ChannelIdPage = () => {
       placeholder="Type your message"
       value={message}
       onChange={handleMessageChange} />
-      <button onClick={handleSendMessage}>submit</button>
+      <button onClick={handleSendMessage}>Send</button>
     </div>
   );
 };

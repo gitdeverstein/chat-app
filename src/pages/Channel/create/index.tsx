@@ -6,15 +6,27 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
+interface User {
+  id: number;
+  name: string;
+}
+
 export default function CreateChannel() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
   const router = useRouter();
   const [createError, setCreateError] = useState(false);
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedMembers, setSelectedMembers] = useState<number[]>([]);
 
   const onSubmit = async (data: any) => {
     try {
       const token = Cookies.get('token');
-      const response = await axios.post('http://localhost:8080/channel', data, {
+      const requestData = {
+        ...data,
+        members: selectedMembers
+      };
+
+      const response = await axios.post('http://localhost:8080/channel', requestData, {
         headers: { Authorization: `Bearer ${token}`,},
       });
 
@@ -28,6 +40,14 @@ export default function CreateChannel() {
     } catch (error) {
       console.error(error);
       setCreateError(true);
+    }
+  };
+
+  const handleMemberSelection = (userId: number) => {
+    if (selectedMembers.includes(userId)) {
+      setSelectedMembers(selectedMembers.filter(id => id !== userId));
+    } else {
+      setSelectedMembers([...selectedMembers, userId]);
     }
   };
 
@@ -46,6 +66,24 @@ export default function CreateChannel() {
             <MenuItem value="Pivate">Private</MenuItem>
           </Select>
         </FormControl>
+        <br/>
+        <div>
+         <label>Members</label>
+          {users.length > 0 ? (
+            users.map((user) => (
+              <div key={user.id}>
+                <input
+                  type="checkbox"
+                  onChange={() => handleMemberSelection(user.id)}
+                  checked={selectedMembers.includes(user.id)}
+                />
+                <label>{user.name}</label>
+              </div>
+            ))
+          ) : (
+            <p>Loading ...</p>
+          )}
+        </div>
         <br/>
         <TextField required label="Member" type="text" {...register('members')} />
         <br/>
