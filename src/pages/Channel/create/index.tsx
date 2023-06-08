@@ -15,9 +15,7 @@ export default function CreateChannel() {
     try {
       const token = Cookies.get('token');
       const response = await axios.post('http://localhost:8080/channel', data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}`,},
       });
 
       if (response.status === 201 && response.data.status) {
@@ -43,7 +41,7 @@ export default function CreateChannel() {
         <TextField required label="Name" type="text" {...register('name')} />
         <br/>
         <FormControl fullWidth>
-          <Select label="Age" labelId="demo-simple-select-label" id="demo-simple-select">
+          <Select label="type" labelId="demo-simple-select-label" id="demo-simple-select">
             <MenuItem value="Public">Public</MenuItem>
             <MenuItem value="Pivate">Private</MenuItem>
           </Select>

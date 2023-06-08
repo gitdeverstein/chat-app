@@ -28,7 +28,7 @@ const fetchChannels = async () => {
 try {
 const token = Cookies.get('token');
 
-    const response = await axios.get('http://localhost:8080/channel', {
+    const response = await axios.post('http://localhost:8080/channel', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -48,7 +48,7 @@ const token = Cookies.get('token');
 fetchChannels();
 }, []);
 
-const handleChannelClick = (channelId: number) => {
+const handleClickChannel = (channelId: number) => {
 router.push('channel/${channelId}');
 };
 
@@ -67,12 +67,7 @@ const handleSendMessage = async () => {
       {
         recipientId: userId,
         content: message,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      },{headers: {Authorization: `Bearer ${token}`},}
     );
 
     if (response.status === 201 && response.data.status) {
@@ -92,7 +87,7 @@ return (
   <NavBar/>
 <h1>Channel</h1>
 {messages.map((channel) => (
-<div key={channel.id} onClick={() => handleChannelClick(channel.id)}>
+<div key={channel.id} onClick={() => handleClickChannel(channel.id)}>
 <div>
 {messages.map((message) => (
               <div key={message.id}>
@@ -102,7 +97,7 @@ return (
             ))}
 </div>
 
-<div>
+          <div>
             <div className="input-group">
               <input
                 type="text"
@@ -111,9 +106,7 @@ return (
                 value={message}
                 onChange={handleMessageChange}
               />
-              <button className="btn btn-primary" onClick={handleSendMessage}>
-                Send
-              </button>
+              <button className="btn btn-primary" onClick={handleSendMessage}>Send</button>
             </div>
           </div>
 

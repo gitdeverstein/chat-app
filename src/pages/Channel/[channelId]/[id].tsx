@@ -25,7 +25,6 @@ interface Message {
 
 const ChannelIdPage = () => {
   const [channel, setChannel] = useState<Channel | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const router = useRouter();
   const { channelId } = router.query;

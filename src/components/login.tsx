@@ -39,8 +39,8 @@ const LoginPage: NextPage= ()=>{
 
     return(
         <>
-          <Stack alignItems="center">
-      <h1>Login</h1>
+        <Stack alignItems="center">
+          <h1>Login</h1>
       {loginError && <p>Incorrect email or password</p>}
       <form onSubmit={handleSubmit(onLogin)}>
       <TextField
@@ -63,7 +63,7 @@ const LoginPage: NextPage= ()=>{
         <Button variant="contained" onClick={handleSingUp}>
           Sign up
         </Button>
-      </Stack>  
+            </Stack>  
         </>
     )
 }

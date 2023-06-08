@@ -68,9 +68,7 @@ const AddMemberPage = () => {
         <div>
           <h2>Members Added:</h2>
           <ul>
-            {userAdded.map((userId) => (
-              <li key={userId}>{userId}</li>
-            ))}
+            {userAdded.map((userId) => ( <li key={userId}>{userId}</li> ))}
           </ul>
         </div>
       )}

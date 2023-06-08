@@ -2,26 +2,38 @@ import Link from 'next/link';
 import { Stack, Button, List, ListItem } from '@mui/material';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import { jsx } from '@emotion/react';
 
 function NavBar () {
   const router= useRouter();
 
-  const handleProfileClick = () => {
+  const handleClickProfile = () => {
     const token = Cookies.get('token');
     
     if (token) {
-      router.push('/users/profile');
+      router.push('/profile');
     } else {
-      router.push('/users/login');
+      router.push('/login');
     }
   };
 
-  const handleLogout = () => {
-    Cookies.remove('token');
 
-    router.push('/users/login');
+  const handleLogout = () => {
+    const token= Cookies.get('token')
+    if (token) {
+    Cookies.remove('token');
+    router.push('/login');
+    }
   };
+
+  const handleChannel= ()=>{
+    const token= Cookies.get('token')
+
+    if (token) {
+      router.push('/channel');
+    } else {
+      router.push('/login');
+    }
+  }
     
   const handleCreateChannel = () => {
     const token = Cookies.get('token');
@@ -39,18 +51,24 @@ function NavBar () {
       <Stack alignItems="center">
       <List>
         <ListItem>
-            <Button component="a" variant="contained" color="primary" onClick={handleProfileClick}>Profile</Button>
+            <Link href="/Profile">
+            <Button component="a" variant="contained" color="primary" onClick={handleClickProfile}>Profile</Button>
+            </Link>
         </ListItem>
         <ListItem>
           <Link href="/channel" passHref>
-            <Button component="a" variant="contained" color="primary">Channel</Button>
+            <Button component="a" variant="contained" color="primary" onClick={handleChannel}>Channel</Button>
           </Link>
         </ListItem>
         <ListItem>
+          <Link href="/channel/create" passHref>
             <Button component="a" variant="contained" color="primary" onClick={handleCreateChannel}>Create channel</Button>
+          </Link>
         </ListItem>
       </List>
-      <Button onClick={handleLogout}>Logout</Button>
+        <Link href="/Login">
+        <Button onClick={handleLogout}>Logout</Button>
+        </Link>
       </Stack>
     </div>
     </>

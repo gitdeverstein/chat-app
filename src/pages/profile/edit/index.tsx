@@ -21,7 +21,7 @@ const EditProfilePage= ()=>{
       });
 
       if (response.status === 200) {
-        router.push('/profile');
+        router.push('/channel/create');
       } else {
         setEditError(true);
       }
@@ -52,6 +52,11 @@ const EditProfilePage= ()=>{
         id="outlined-required"
         label="New password"
         type="Password" {...register('password')} />
+        <br/>
+        <TextField 
+        id="outlined-required"
+        label="Confirm new password"
+        type="Password" {...register('newPassword')} />
         <br/>
         <TextField
           id="outlined-multiline-static"
