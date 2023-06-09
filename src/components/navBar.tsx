@@ -2,9 +2,11 @@ import Link from 'next/link';
 import { Stack, Button, List, ListItem } from '@mui/material';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 
 function NavBar () {
   const router= useRouter();
+  const [channels, setChannels] = useState(false);
 
   const handleClickProfile = () => {
     const token = Cookies.get('token');
@@ -18,18 +20,16 @@ function NavBar () {
 
 
   const handleLogout = () => {
-    const token= Cookies.get('token')
-    if (token) {
     Cookies.remove('token');
-    router.push('/login');
-    }
+    Cookies.remove('recipient');
+    router.push('/login')
   };
 
   const handleChannel= ()=>{
     const token= Cookies.get('token')
 
     if (token) {
-      router.push('/channel');
+      setChannels(!channels);
     } else {
       router.push('/login');
     }

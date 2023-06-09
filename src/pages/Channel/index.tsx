@@ -28,7 +28,7 @@ const fetchChannels = async () => {
 try {
 const token = Cookies.get('token');
 
-    const response = await axios.post('http://localhost:8080/channel', {
+    const response = await axios.get('http://localhost:8080/channel', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -48,7 +48,7 @@ const token = Cookies.get('token');
 fetchChannels();
 }, []);
 
-const handleClickChannel = (channelId: number) => {
+const handleClickChannel = (channel: number) => {
 router.push('channel/${channelId}');
 };
 
@@ -62,8 +62,7 @@ const handleCreateChannel= () => {
 
 const handleSendMessage = async () => {
   try {
-    const response = await axios.post(
-      'http://localhost:8080/message',
+    const response = await axios.post('http://localhost:8080/message',
       {
         recipientId: userId,
         content: message,

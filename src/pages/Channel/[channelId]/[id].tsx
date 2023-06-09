@@ -18,7 +18,7 @@ const ChannelIdPage = () => {
   const [message, setMessage] = useState('');
   const router = useRouter();
   const { channelId } = router.query;
-  const [createError, setCreateError] = useState(false);
+  const [error, setError] = useState(false);
   const token = Cookies.get('token');
 
   useEffect(() => {
@@ -34,11 +34,11 @@ const ChannelIdPage = () => {
         if (response.status === 200 && response.data.status) {
           setChannel(response.data.channel);
         } else {
-            setCreateError(true);
+            setError(true);
         }
       } catch (error) {
         console.error(error);
-        setCreateError(true);
+        setError(true);
         router.push(`/channel/create`)
       }
     };
@@ -53,7 +53,7 @@ const ChannelIdPage = () => {
   }
 
   const handleAddMembers = () => {
-    router.push(`channel/${channelId}/members`);
+    router.push(`channel/edit/${channelId}`);
   };
 
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
