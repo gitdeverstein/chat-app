@@ -25,7 +25,7 @@ const ChannelIdPage = () => {
     const fetchChannelData = async () => {
       try {
         const token = Cookies.get('token');
-        const response = await axios.get(`http://localhost:8080/channel/${channelId}`, {
+        const response = await axios.get(`http://localhost:8080/messages/channel/${channelId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
