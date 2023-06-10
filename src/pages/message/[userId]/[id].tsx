@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import { Button, Stack } from '@mui/material';
-import NavBar from '../../components/NavBar';
+import { Button, Stack, TextField } from '@mui/material';
+import NavBar from '../../../components/NavBar';
 
 interface Message {
   sender: any;
@@ -16,7 +16,7 @@ interface Message {
   createdAt: string;
 }
 
-const ChannelPage = () => {
+function ChannelPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const router = useRouter();
   const [message, setMessage] = useState('');
@@ -28,7 +28,7 @@ const fetchChannels = async () => {
 try {
 const token = Cookies.get('token');
 
-    const response = await axios.get('http://localhost:8080/channel', {
+    const response = await axios.get('http://localhost:8080/messages/${userId}', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -47,10 +47,6 @@ const token = Cookies.get('token');
 
 fetchChannels();
 }, []);
-
-const handleClickChannel = (channel: number) => {
-router.push('channel/${channelId}');
-};
 
 const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   setMessage(event.target.value);
@@ -84,9 +80,8 @@ return (
   <Stack alignItems="center">
   <div>
   <NavBar/>
-<h1>Channel</h1>
-{messages.map((channel) => (
-<div key={channel.id} onClick={() => handleClickChannel(channel.id)}>
+<h1>Chat</h1>
+<div>
 <div>
 {messages.map((message) => (
               <div key={message.id}>
@@ -98,19 +93,17 @@ return (
 
           <div>
             <div className="input-group">
-              <input
+              <TextField
                 type="text"
-                className="form-control"
-                placeholder="Type your message"
+                label="Type your message"
                 value={message}
                 onChange={handleMessageChange}
               />
-              <button className="btn btn-primary" onClick={handleSendMessage}>Send</button>
+              <Button onClick={handleSendMessage}>Send</Button>
             </div>
           </div>
 
 </div>
-))}
 <h4>No channels?</h4>
 <Button variant="contained" onClick={handleCreateChannel}>Create channel</Button>
 </div>

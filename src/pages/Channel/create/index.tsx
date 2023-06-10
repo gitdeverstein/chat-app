@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Button, TextField, Stack, FormControl, Select, MenuItem} from '@mui/material';
+import { Button, TextField, Stack, FormControl, Select, MenuItem, Typography} from '@mui/material';
 import NavBar from "@/components/NavBar";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -68,7 +68,7 @@ export default function CreateChannel() {
         </FormControl>
         <br/>
         <div>
-         <label>Members</label>
+          <Typography>Member</Typography>
           {users.length > 0 ? (
             users.map((user) => (
               <div key={user.id}>
@@ -84,9 +84,6 @@ export default function CreateChannel() {
             <p>Loading ...</p>
           )}
         </div>
-        <br/>
-        <TextField required label="Member" type="text" {...register('members')} />
-        <br/>
         <Button variant="contained" type="submit">Create channel</Button>
       </form>
     </Stack>
